@@ -44,9 +44,9 @@ const post = {
           imgList[Math.floor(Math.random() * imgList.length)];
         user = await User.getUser(post.data.userId);
         post.data.userName = user.data.name;
-        await postTemp.push(post.data);
+        postTemp.push(post.data);
       }
-      postList = await postList.concat(postTemp);
+      postList = postList.concat(postTemp);
       commit("SET_POST_LIST", postList);
     }
   }

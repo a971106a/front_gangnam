@@ -63,10 +63,8 @@ export default {
       switch (viewType) {
         case "list":
           this.viewType = viewType;
-          console.log(this.viewType);
           break;
         case "grid":
-          console.log(this.viewType);
           this.viewType = viewType;
           break;
       }
