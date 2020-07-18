@@ -3,20 +3,14 @@
     <div class="list-area">
       <div class="list">
         <div class="item" v-for="post in POST_LIST" :key="post.id">
-          <div class="item-header">
-            <div class="title">{{ post.title }}</div>
-          </div>
-          <div class="item-body">
-            <img :src="post.thumnailImg" />
+          <img :src="post.thumnailImg" />
+          <div class="title">{{ post.title }}</div>
+          <div style="display: inline-block; width: 90%;">
             <div class="post-body">
-              <p style="text-align: right;">
-                <b> by. {{ post.userName }} </b>
-              </p>
-              <p>
-                {{ post.body }}
-              </p>
+              {{ post.body }}
             </div>
           </div>
+          <div class="post-user">by. {{ post.userName }}</div>
         </div>
       </div>
     </div>
@@ -33,3 +27,71 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.content {
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+}
+.list-area {
+  width: 65vw;
+  align-self: center;
+}
+
+.list {
+  width: 100%;
+  float: left;
+}
+
+.item {
+  background: #f7f7f7;
+  margin-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 15vw;
+  display: inline-block;
+  margin-right: 6px;
+  align-self: center;
+}
+
+.item img {
+  width: 10rem;
+  margin-top: 7px;
+  border-radius: 10rem;
+}
+
+.item .title {
+  font-size: 1.3rem;
+  display: inline-block;
+  color: #000000;
+  width: 87%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.post-body {
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+  line-height: 1.2rem;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  max-height: 3.6rem;
+}
+
+.post-user {
+  color: #f9c900;
+  font-weight: 400;
+  width: 70%;
+  display: inline-block;
+  line-height: 1.2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+</style>
