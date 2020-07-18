@@ -1,0 +1,72 @@
+<template>
+  <div></div>
+</template>
+
+<script>
+import { createNamespacedHelpers } from "vuex";
+const { mapGetters, mapMutations } = createNamespacedHelpers("post");
+export default {
+  props: {
+    infinite: Function,
+    default: () => {}
+  },
+  data() {
+    return {
+      scrollTop: 0,
+      documentHeight: 0,
+      clientHeight: 0,
+      getFileInterval: null,
+      isGetting: false
+    };
+  },
+  computed: {
+    ...mapGetters(["IS_GET_POST"])
+  },
+  mounted() {
+    window.addEventListener("scroll", e => {
+      this.scrollHandler(e);
+    });
+    this.getFileInterval = setInterval(() => {
+      this.getHeight();
+      if (this.clientHeight >= this.offsetHeight) {
+        this.infinite();
+      } else {
+        clearInterval(this.getFileInterval);
+        this.getFileInterval = null;
+      }
+    }, 1000);
+  },
+  methods: {
+    ...mapMutations(["SET_IS_GET_POST"]),
+    async scrollHandler() {
+      this.getHeight();
+      if (this.scrollTop >= this.offsetHeight - this.clientHeight) {
+        await this.infinite();
+      }
+    },
+    getHeight() {
+      this.scrollTop =
+        window.pageYOffset !== undefined
+          ? window.pageYOffset
+          : (
+              document.documentElement ||
+              document.body.parentNode ||
+              document.body
+            ).scrollTop;
+      this.offsetHeight = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+      );
+      this.clientHeight =
+        window.innerHeight ||
+        Math.max(
+          document.documentElement.clientHeight,
+          document.body.clientHeight
+        );
+    }
+  }
+};
+</script>

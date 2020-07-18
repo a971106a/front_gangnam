@@ -1,24 +1,40 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <div id="nav-btn" class="nav-cell">홈</div>
+      <div class="nav-cell">{{ TITLE }}</div>
+      <div id="nav-btn" class="nav-cell"></div>
     </div>
+    <div style="padding-top: 30px"></div>
     <router-view />
   </div>
 </template>
 
-<style>
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["TITLE"])
+  }
+};
+</script>
+
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 100vw;
 }
 
 #nav {
-  padding: 30px;
+  height: 3vh;
+  width: 100%;
+  vertical-align: middle;
+  position: fixed;
 }
 
 #nav a {
@@ -28,5 +44,18 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+</style>
+
+<style lang="scss" scoped>
+#nav {
+  display: table;
+}
+#nav-btn {
+  width: 5% !important;
+}
+.nav-cell {
+  display: table-cell;
+  vertical-align: middle;
 }
 </style>
