@@ -120,13 +120,10 @@ export default {
 }
 .list .title {
   font-size: 1.3rem;
-  margin: 0;
-  padding: 0;
   margin-top: 0.5rem;
   display: inline-block;
   color: #000000;
   width: 90%;
-  text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
