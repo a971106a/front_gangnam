@@ -35,6 +35,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@media all and (max-width: 414px) {
+  .content {
+    padding-right: 4vw;
+  }
+}
 @media all and (max-width: 768px) {
   .list-area {
     height: 580px;
@@ -48,7 +53,6 @@ export default {
   justify-content: center;
 }
 .list-area {
-  width: 48%;
   max-width: 529px;
   align-self: center;
   height: 50vh;
@@ -95,7 +99,7 @@ export default {
   margin: 0;
   margin-bottom: 0.3rem;
   line-height: 1.2rem;
-  width: 34vw;
+  width: 94%;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -107,7 +111,7 @@ export default {
 .post-body p b {
   color: #f9c900;
   font-weight: 400;
-  width: 7.8rem;
+  width: 60%;
   display: inline-block;
   line-height: 1.2rem;
   overflow: hidden;
