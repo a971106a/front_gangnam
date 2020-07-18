@@ -1,8 +1,14 @@
 <template>
   <div class="home">
-    <div>
-      <img :src="require('@/assets/img/icon_grid_b.png')" />
-      <img :src="require('@/assets/img/icon_list_b.png')" />
+    <div class="filter-area">
+      <img
+        @click="changeViewType('list')"
+        :src="require('@/assets/img/icon_list_b.png')"
+      />
+      <img
+        @click="changeViewType('grid')"
+        :src="require('@/assets/img/icon_grid_b.png')"
+      />
     </div>
     <List v-if="viewType === 'list'" />
     <Grid v-if="viewType === 'grid'" />
@@ -52,13 +58,39 @@ export default {
         this.limit += this.postInterval;
         await this["post/SET_IS_GET_POST"](false);
       }
+    },
+    changeViewType(viewType) {
+      switch (viewType) {
+        case "list":
+          this.viewType = viewType;
+          console.log(this.viewType);
+          break;
+        case "grid":
+          console.log(this.viewType);
+          this.viewType = viewType;
+          break;
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@media all and (max-width: 768px) {
+  .filter-area {
+    min-width: 90%;
+  }
+}
 .home {
   align-self: center;
+}
+.filter-area {
+  width: 48%;
+  max-width: 529px;
+  margin: 0 auto;
+  text-align: right;
+}
+.filter-area img {
+  width: 23px;
 }
 </style>
