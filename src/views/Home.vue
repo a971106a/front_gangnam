@@ -10,16 +10,24 @@
         :src="require('@/assets/img/icon_grid_b.png')"
       />
     </div>
-    <List v-if="viewType === 'list'" />
-    <Grid v-if="viewType === 'grid'" />
-    <InfiniteScroll :infinite="infiniteHandler" />
+    <List
+      v-if="VIEW_TYPE === 'list'"
+      :offset="offset"
+      :limit="limit"
+      :postInterval="postInterval"
+    />
+    <Grid
+      v-if="VIEW_TYPE === 'grid'"
+      :offset="offset"
+      :limit="limit"
+      :postInterval="postInterval"
+    />
   </div>
 </template>
 
 <script>
 import List from "@/components/post/List.vue";
 import Grid from "@/components/post/Grid.vue";
-import InfiniteScroll from "@/components/post/InfiniteScroll.vue";
 import { mapMutations } from "vuex";
 import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapGetters } = createNamespacedHelpers("post");
@@ -28,28 +36,30 @@ export default {
   name: "Home",
   components: {
     List,
-    Grid,
-    InfiniteScroll
+    Grid
   },
   created() {
     this.SET_TITLE("Home");
   },
   computed: {
     ...mapGetters(["POST_LIST"]),
-    ...mapGetters(["IS_GET_POST"])
+    ...mapGetters(["IS_GET_POST"]),
+    ...mapGetters(["VIEW_TYPE"])
   },
   data() {
     return {
       offset: 1,
       limit: 8,
-      postInterval: 8,
-      viewType: "list"
+      postInterval: 8
     };
   },
   methods: {
     ...mapMutations(["SET_TITLE"]),
     ...mapMutations(["post/SET_IS_GET_POST"]),
+    ...mapMutations(["post/SET_POST_LIST"]),
+    ...mapMutations(["post/SET_VIEW_TYPE"]),
     ...mapActions(["GET_POST_LIST"]),
+    ...mapActions(["RESET_POST_LIST"]),
     async infiniteHandler() {
       if (!this.IS_GET_POST) {
         this["post/SET_IS_GET_POST"](true);
@@ -60,14 +70,9 @@ export default {
       }
     },
     changeViewType(viewType) {
-      switch (viewType) {
-        case "list":
-          this.viewType = viewType;
-          break;
-        case "grid":
-          this.viewType = viewType;
-          break;
-      }
+      this.RESET_POST_LIST();
+      this["post/SET_IS_GET_POST"](false);
+      this["post/SET_VIEW_TYPE"](viewType);
     }
   }
 };

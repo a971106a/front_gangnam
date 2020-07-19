@@ -5,7 +5,8 @@ const post = {
   namespaced: true,
   state: {
     postList: [],
-    isGetPost: null
+    isGetPost: null,
+    viewType: "list"
   },
   getters: {
     POST_LIST(state) {
@@ -13,6 +14,9 @@ const post = {
     },
     IS_GET_POST(state) {
       return state.isGetPost;
+    },
+    VIEW_TYPE(state) {
+      return state.viewType;
     }
   },
   mutations: {
@@ -21,6 +25,9 @@ const post = {
     },
     SET_IS_GET_POST(state, isGetPost) {
       state.isGetPost = isGetPost;
+    },
+    SET_VIEW_TYPE(state, viewType) {
+      state.viewType = viewType;
     }
   },
   actions: {
@@ -48,6 +55,9 @@ const post = {
       }
       postList = postList.concat(postTemp);
       commit("SET_POST_LIST", postList);
+    },
+    RESET_POST_LIST({ commit }) {
+      commit("SET_POST_LIST", []);
     }
   }
 };

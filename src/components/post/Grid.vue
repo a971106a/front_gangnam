@@ -12,18 +12,58 @@
           </div>
           <div class="post-user">by. {{ post.userName }}</div>
         </div>
+        <InfiniteScroll :infinite="infiniteHandler" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import InfiniteScroll from "@/components/post/InfiniteScroll.vue";
 import { createNamespacedHelpers } from "vuex";
-const { mapGetters } = createNamespacedHelpers("post");
+const { mapGetters, mapMutations, mapActions } = createNamespacedHelpers(
+  "post"
+);
 
 export default {
+  props: {
+    offset: Number,
+    limit: Number,
+    postInterval: Number
+  },
   computed: {
-    ...mapGetters(["POST_LIST"])
+    ...mapGetters(["POST_LIST"]),
+    ...mapGetters(["IS_GET_POST"]),
+    ...mapGetters(["VIEW_TYPE"])
+  },
+  components: {
+    InfiniteScroll
+  },
+  data() {
+    return {
+      list_offset: null,
+      list_limit: null
+    };
+  },
+  mounted() {
+    this.list_offset = this.offset;
+    this.list_limit = this.limit;
+  },
+  methods: {
+    ...mapActions(["GET_POST_LIST"]),
+    ...mapMutations(["SET_IS_GET_POST"]),
+    async infiniteHandler() {
+      if (!this.IS_GET_POST && this.VIEW_TYPE === "grid") {
+        this.SET_IS_GET_POST(true);
+        await this.GET_POST_LIST({
+          offset: this.list_offset,
+          limit: this.list_limit
+        });
+        this.list_offset += this.postInterval;
+        this.list_limit += this.postInterval;
+        await this.SET_IS_GET_POST(false);
+      }
+    }
   }
 };
 </script>

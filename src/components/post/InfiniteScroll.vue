@@ -13,10 +13,9 @@ export default {
   data() {
     return {
       scrollTop: 0,
-      documentHeight: 0,
       clientHeight: 0,
-      getFileInterval: null,
-      isGetting: false
+      offsetHeight: 0,
+      getFileInterval: null
     };
   },
   computed: {
@@ -26,15 +25,7 @@ export default {
     window.addEventListener("scroll", e => {
       this.scrollHandler(e);
     });
-    this.getFileInterval = setInterval(() => {
-      this.getHeight();
-      if (this.clientHeight >= this.offsetHeight) {
-        this.infinite();
-      } else {
-        clearInterval(this.getFileInterval);
-        this.getFileInterval = null;
-      }
-    }, 1000);
+    this.fillDocument();
   },
   methods: {
     ...mapMutations(["SET_IS_GET_POST"]),
@@ -43,6 +34,17 @@ export default {
       if (this.scrollTop >= this.offsetHeight - this.clientHeight) {
         await this.infinite();
       }
+    },
+    fillDocument() {
+      this.getFileInterval = setInterval(() => {
+        this.getHeight();
+        if (this.clientHeight >= this.offsetHeight) {
+          this.infinite();
+        } else {
+          clearInterval(this.getFileInterval);
+          this.getFileInterval = null;
+        }
+      }, 1000);
     },
     getHeight() {
       this.scrollTop =
