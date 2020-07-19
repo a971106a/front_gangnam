@@ -2,7 +2,12 @@
   <div v-if="POST_LIST" class="content">
     <div class="list-area">
       <div class="list">
-        <div class="item" v-for="post in POST_LIST" :key="post.id">
+        <div
+          class="item"
+          v-for="post in POST_LIST"
+          :key="post.id"
+          @click="goPost(post.id)"
+        >
           <div class="item-header">
             <div class="title">{{ post.title }}</div>
           </div>
@@ -74,6 +79,14 @@ export default {
         this.SET_LIMIT(this.LIMIT + this.POST_INTERVAL);
         this.SET_IS_GET_POST(false);
       }
+    },
+    goPost(id) {
+      this.$router.push({
+        name: "post-id",
+        params: {
+          id
+        }
+      });
     }
   }
 };
