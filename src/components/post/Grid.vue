@@ -95,9 +95,9 @@ export default {
 }
 
 .item img {
-  width: 10rem;
+  width: 12vw;
   margin-top: 7px;
-  border-radius: 10rem;
+  border-radius: 12vw;
 }
 
 .item .title {
