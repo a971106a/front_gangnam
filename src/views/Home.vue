@@ -95,6 +95,7 @@ export default {
   margin: 0 auto;
   text-align: right;
   height: 28px;
+  display: -ms-flexbox;
   display: flex;
   justify-content: space-between;
 }
@@ -114,6 +115,7 @@ export default {
   height: 45px;
   border-radius: 45px;
   background-color: #f9c900;
+  display: -ms-flexbox;
   display: flex;
   justify-content: center;
 }
