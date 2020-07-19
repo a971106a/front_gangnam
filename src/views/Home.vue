@@ -42,8 +42,6 @@ export default {
     this.SET_TITLE("Home");
   },
   computed: {
-    ...mapGetters(["POST_LIST"]),
-    ...mapGetters(["IS_GET_POST"]),
     ...mapGetters(["VIEW_TYPE"])
   },
   data() {
@@ -56,19 +54,8 @@ export default {
   methods: {
     ...mapMutations(["SET_TITLE"]),
     ...mapMutations(["post/SET_IS_GET_POST"]),
-    ...mapMutations(["post/SET_POST_LIST"]),
     ...mapMutations(["post/SET_VIEW_TYPE"]),
-    ...mapActions(["GET_POST_LIST"]),
     ...mapActions(["RESET_POST_LIST"]),
-    async infiniteHandler() {
-      if (!this.IS_GET_POST) {
-        this["post/SET_IS_GET_POST"](true);
-        await this.GET_POST_LIST({ offset: this.offset, limit: this.limit });
-        this.offset += this.postInterval;
-        this.limit += this.postInterval;
-        await this["post/SET_IS_GET_POST"](false);
-      }
-    },
     changeViewType(viewType) {
       this.RESET_POST_LIST();
       this["post/SET_IS_GET_POST"](false);
