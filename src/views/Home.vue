@@ -14,18 +14,8 @@
         :src="require('@/assets/img/icon_grid_b.png')"
       />
     </div>
-    <List
-      v-if="VIEW_TYPE === 'list'"
-      :offset="offset"
-      :limit="limit"
-      :postInterval="postInterval"
-    />
-    <Grid
-      v-if="VIEW_TYPE === 'grid'"
-      :offset="offset"
-      :limit="limit"
-      :postInterval="postInterval"
-    />
+    <List v-if="VIEW_TYPE === 'list'" />
+    <Grid v-if="VIEW_TYPE === 'grid'" />
     <div class="scroll-up-btn">
       <img @click="goScrollTop()" :src="require('@/assets/img/arrow_up.png')" />
     </div>
@@ -49,26 +39,33 @@ export default {
     this.SET_TITLE("Home");
   },
   computed: {
-    ...mapGetters(["VIEW_TYPE"])
+    ...mapGetters(["VIEW_TYPE"]),
+    ...mapGetters(["OFFSET"]),
+    ...mapGetters(["LIMIT"]),
+    ...mapGetters(["POST_INTERVAL"])
   },
   data() {
     return {
-      offset: 1,
-      limit: 8,
+      isMobile: false,
       postInterval: 8
     };
   },
   watch: {
     postInterval() {
+      this["post/SET_POST_INTERVAL"](this.postInterval);
     }
   },
   methods: {
     ...mapMutations(["SET_TITLE"]),
     ...mapMutations(["post/SET_IS_GET_POST"]),
     ...mapMutations(["post/SET_VIEW_TYPE"]),
+    ...mapMutations(["post/SET_LIMIT"]),
+    ...mapMutations(["post/SET_POST_INTERVAL"]),
     ...mapActions(["RESET_POST_LIST"]),
     changeViewType(viewType) {
       this.RESET_POST_LIST();
+      this["post/SET_LIMIT"](this.postInterval);
+      this["post/SET_POST_INTERVAL"](this.postInterval);
       this["post/SET_IS_GET_POST"](false);
       this["post/SET_VIEW_TYPE"](viewType);
     },

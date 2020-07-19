@@ -6,7 +6,10 @@ const post = {
   state: {
     postList: [],
     isGetPost: null,
-    viewType: "list"
+    viewType: "list",
+    offset: 1,
+    limit: 8,
+    postInterval: 8
   },
   getters: {
     POST_LIST(state) {
@@ -17,6 +20,15 @@ const post = {
     },
     VIEW_TYPE(state) {
       return state.viewType;
+    },
+    OFFSET(state) {
+      return state.offset;
+    },
+    LIMIT(state) {
+      return state.limit;
+    },
+    POST_INTERVAL(state) {
+      return state.postInterval;
     }
   },
   mutations: {
@@ -28,6 +40,15 @@ const post = {
     },
     SET_VIEW_TYPE(state, viewType) {
       state.viewType = viewType;
+    },
+    SET_OFFSET(state, offset) {
+      state.offset = offset;
+    },
+    SET_LIMIT(state, limit) {
+      state.limit = limit;
+    },
+    SET_POST_INTERVAL(state, postInterval) {
+      state.postInterval = postInterval;
     }
   },
   actions: {
@@ -58,6 +79,7 @@ const post = {
     },
     RESET_POST_LIST({ commit }) {
       commit("SET_POST_LIST", []);
+      commit("SET_OFFSET", 1);
     }
   }
 };
