@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapGetters, mapMutations } = createNamespacedHelpers("post");
 export default {
   props: {
     infinite: Function,
@@ -18,9 +16,6 @@ export default {
       getFileInterval: null
     };
   },
-  computed: {
-    ...mapGetters(["IS_GET_POST"])
-  },
   mounted() {
     window.addEventListener("scroll", e => {
       this.scrollHandler(e);
@@ -28,7 +23,6 @@ export default {
     this.fillDocument();
   },
   methods: {
-    ...mapMutations(["SET_IS_GET_POST"]),
     async scrollHandler() {
       this.getHeight();
       if (this.scrollTop >= this.offsetHeight - this.clientHeight) {
