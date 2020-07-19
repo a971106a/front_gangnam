@@ -36,11 +36,7 @@ export default {
     return {
       title: this.post.title,
       meta: [
-        {
-          property: "og:title",
-          content: this.post.title,
-          vmid: "og:title"
-        }
+        { name: "description", content: this.post.body, vmid: "description" }
       ]
     };
   }

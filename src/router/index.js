@@ -4,7 +4,7 @@ import Meta from "vue-meta";
 import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
-Vue.use(Meta);
+Vue.use(Meta, { tagIDKeyName: "vmid" });
 
 const routes = [
   {
