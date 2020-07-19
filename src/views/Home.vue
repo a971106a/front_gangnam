@@ -10,6 +10,7 @@
         :src="require('@/assets/img/icon_list_b.png')"
       />
       <img
+        v-if="!isMobile"
         @click="changeViewType('grid')"
         :src="require('@/assets/img/icon_grid_b.png')"
       />
@@ -37,6 +38,9 @@ export default {
   },
   created() {
     this.SET_TITLE("Home");
+    if (window.innerWidth < 760) {
+      this.isMobile = true;
+    }
   },
   computed: {
     ...mapGetters(["VIEW_TYPE"]),
