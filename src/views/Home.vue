@@ -1,6 +1,10 @@
 <template>
   <div class="home">
     <div class="filter-area">
+      <select v-model="postInterval">
+        <option :value="8">8개</option>
+        <option :value="16">16개</option>
+      </select>
       <img
         @click="changeViewType('list')"
         :src="require('@/assets/img/icon_list_b.png')"
@@ -53,6 +57,10 @@ export default {
       limit: 8,
       postInterval: 8
     };
+  },
+  watch: {
+    postInterval() {
+    }
   },
   methods: {
     ...mapMutations(["SET_TITLE"]),
