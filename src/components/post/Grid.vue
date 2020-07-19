@@ -34,7 +34,10 @@ export default {
   computed: {
     ...mapGetters(["POST_LIST"]),
     ...mapGetters(["IS_GET_POST"]),
-    ...mapGetters(["VIEW_TYPE"])
+    ...mapGetters(["VIEW_TYPE"]),
+    ...mapGetters(["OFFSET"]),
+    ...mapGetters(["LIMIT"]),
+    ...mapGetters(["POST_INTERVAL"])
   },
   components: {
     InfiniteScroll
@@ -52,15 +55,17 @@ export default {
   methods: {
     ...mapActions(["GET_POST_LIST"]),
     ...mapMutations(["SET_IS_GET_POST"]),
+    ...mapMutations(["SET_OFFSET"]),
+    ...mapMutations(["SET_LIMIT"]),
     async infiniteHandler() {
       if (!this.IS_GET_POST && this.VIEW_TYPE === "grid") {
         this.SET_IS_GET_POST(true);
         await this.GET_POST_LIST({
-          offset: this.list_offset,
-          limit: this.list_limit
+          offset: this.OFFSET,
+          limit: this.LIMIT
         });
-        this.list_offset += this.postInterval;
-        this.list_limit += this.postInterval;
+        this.SET_OFFSET(this.OFFSET + this.POST_INTERVAL);
+        this.SET_LIMIT(this.LIMIT + this.POST_INTERVAL);
         await this.SET_IS_GET_POST(false);
       }
     }
