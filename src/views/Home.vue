@@ -22,6 +22,9 @@
       :limit="limit"
       :postInterval="postInterval"
     />
+    <div class="scroll-up-btn">
+      <img @click="goScrollTop()" :src="require('@/assets/img/arrow_up.png')" />
+    </div>
   </div>
 </template>
 
@@ -60,6 +63,9 @@ export default {
       this.RESET_POST_LIST();
       this["post/SET_IS_GET_POST"](false);
       this["post/SET_VIEW_TYPE"](viewType);
+    },
+    goScrollTop() {
+      window.scrollTo(0, 0);
     }
   }
 };
@@ -81,6 +87,24 @@ export default {
   text-align: right;
 }
 .filter-area img {
-  width: 23px;
+  width: 28px;
+  padding-right: 4px;
+}
+.scroll-up-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 45px;
+  background-color: #f9c900;
+  display: flex;
+  justify-content: center;
+}
+.scroll-up-btn img {
+  width: 33px;
+  height: auto;
+}
+.scroll-up-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
 }
 </style>
