@@ -90,10 +90,20 @@ export default {
   max-width: 529px;
   margin: 0 auto;
   text-align: right;
+  height: 28px;
+  display: flex;
+  justify-content: space-between;
 }
 .filter-area img {
   width: 28px;
   padding-right: 4px;
+}
+.filter-area select {
+  border: black solid 1px;
+  width: 53px;
+  font-size: 13px;
+  text-align-last: center;
+  color: black;
 }
 .scroll-up-btn {
   width: 45px;
