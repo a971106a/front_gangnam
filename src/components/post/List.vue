@@ -75,11 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media all and (max-width: 414px) {
-  .content {
-    padding-right: 4vw;
-  }
-}
 @media all and (max-width: 768px) {
   .list-area {
     height: 580px;
