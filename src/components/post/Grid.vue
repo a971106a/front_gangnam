@@ -2,7 +2,12 @@
   <div v-if="POST_LIST" class="content">
     <div class="list-area">
       <div class="list">
-        <div class="item" v-for="post in POST_LIST" :key="post.id">
+        <div
+          class="item"
+          v-for="post in POST_LIST"
+          @click="goPost(post.id)"
+          :key="post.id"
+        >
           <img :src="post.thumnailImg" />
           <div class="title">{{ post.title }}</div>
           <div style="display: inline-block; width: 90%;">
@@ -55,6 +60,14 @@ export default {
             this.SET_IS_GET_POST(false);
             resolve();
           });
+        }
+      });
+    },
+    goPost(id) {
+      this.$router.push({
+        name: "post-id",
+        params: {
+          id
         }
       });
     }
