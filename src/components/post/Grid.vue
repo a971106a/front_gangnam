@@ -26,11 +26,6 @@ const { mapGetters, mapMutations, mapActions } = createNamespacedHelpers(
 );
 
 export default {
-  props: {
-    offset: Number,
-    limit: Number,
-    postInterval: Number
-  },
   computed: {
     ...mapGetters(["POST_LIST"]),
     ...mapGetters(["IS_GET_POST"]),
@@ -41,16 +36,6 @@ export default {
   },
   components: {
     InfiniteScroll
-  },
-  data() {
-    return {
-      list_offset: null,
-      list_limit: null
-    };
-  },
-  mounted() {
-    this.list_offset = this.offset;
-    this.list_limit = this.limit;
   },
   methods: {
     ...mapActions(["GET_POST_LIST"]),
