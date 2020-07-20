@@ -41,15 +41,9 @@ export default {
     if (window.innerWidth < 760) {
       this.isMobile = true;
     }
-    this.RESET_POST_LIST();
-    this["post/SET_LIMIT"](this.postInterval);
-    this["post/SET_POST_INTERVAL"](this.postInterval);
   },
   computed: {
-    ...mapGetters(["VIEW_TYPE"]),
-    ...mapGetters(["OFFSET"]),
-    ...mapGetters(["LIMIT"]),
-    ...mapGetters(["POST_INTERVAL"])
+    ...mapGetters(["VIEW_TYPE"])
   },
   data() {
     return {
