@@ -69,16 +69,20 @@ export default {
     ...mapMutations(["SET_OFFSET"]),
     ...mapMutations(["SET_LIMIT"]),
     async infiniteHandler() {
-      if (!this.IS_GET_POST && this.VIEW_TYPE === "list") {
-        this.SET_IS_GET_POST(true);
-        await this.GET_POST_LIST({
-          offset: this.OFFSET,
-          limit: this.LIMIT
-        });
-        this.SET_OFFSET(this.OFFSET + (this.LIMIT - this.OFFSET + 1));
-        this.SET_LIMIT(this.LIMIT + this.POST_INTERVAL);
-        this.SET_IS_GET_POST(false);
-      }
+      return new Promise(resolve => {
+        if (!this.IS_GET_POST && this.VIEW_TYPE === "list") {
+          this.SET_IS_GET_POST(true);
+          this.GET_POST_LIST({
+            offset: this.OFFSET,
+            limit: this.LIMIT
+          }).then(() => {
+            this.SET_OFFSET(this.OFFSET + (this.LIMIT - this.OFFSET + 1));
+            this.SET_LIMIT(this.LIMIT + this.POST_INTERVAL);
+            this.SET_IS_GET_POST(false);
+            resolve();
+          });
+        }
+      });
     },
     goPost(id) {
       this.$router.push({

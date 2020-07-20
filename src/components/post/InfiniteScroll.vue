@@ -1,5 +1,13 @@
 <template>
-  <div></div>
+  <div>
+    <div>
+      <img
+        style="width: 60px; padding-top: 10px;"
+        v-if="!requestSuccess"
+        :src="require('@/assets/img/3.gif')"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -13,7 +21,8 @@ export default {
       scrollTop: 0,
       clientHeight: 0,
       offsetHeight: 0,
-      getFileInterval: null
+      getFileInterval: null,
+      requestSuccess: false
     };
   },
   mounted() {
@@ -26,16 +35,19 @@ export default {
     async scrollHandler() {
       this.getHeight();
       if (this.scrollTop >= this.offsetHeight - this.clientHeight) {
+        this.requestSuccess = false;
         await this.infinite();
+        this.requestSuccess = true;
       }
     },
-    fillDocument() {
-      this.getFileInterval = setInterval(() => {
+    async fillDocument() {
+      this.getFileInterval = setInterval(async () => {
         this.getHeight();
         if (this.clientHeight >= this.offsetHeight) {
-          this.infinite();
+          await this.infinite();
         } else {
           clearInterval(this.getFileInterval);
+          this.requestSuccess = true;
           this.getFileInterval = null;
         }
       }, 1000);
