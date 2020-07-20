@@ -26,10 +26,11 @@ export default {
     };
   },
   mounted() {
-    window.addEventListener("scroll", e => {
-      this.scrollHandler(e);
-    });
     this.fillDocument();
+    window.addEventListener("scroll", this.scrollHandler);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.scrollHandler);
   },
   methods: {
     async scrollHandler() {
